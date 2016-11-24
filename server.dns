@@ -1,0 +1,6 @@
+hercules.ing.puc.cl 146.155.13.45 A 46800
+iic2333.ing.puc.cl hercules.ing.puc.cl CNAME 46800
+hercules hercules.ing.puc.cl CNAME 46800
+ing.puc.cl www.ing.uc.cl CNAME 46800
+www.ing.puc.cl www.ing.uc.cl CNAME 46800
+www.ing.uc.cl 146.155.4.12 A 46800
