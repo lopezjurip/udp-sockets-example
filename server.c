@@ -35,6 +35,7 @@ long line_count(FILE *file) {
 int main(int argc, char const *argv[]) {
 
   /* DNS file setup */
+
   const char *dns_file = (argc < 2) ? DNS : argv[1];
   printf("DNS File: %s\n\n", dns_file);
   FILE *file = fopen(dns_file, "r");
