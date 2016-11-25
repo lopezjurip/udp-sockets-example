@@ -35,3 +35,11 @@ Run with custom server IP:
 ```sh
 ./client 192.168.1.10
 ```
+
+## Clean project
+
+Remove binaries and temporal files:
+
+```sh
+make clean
+```

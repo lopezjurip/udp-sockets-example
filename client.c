@@ -1,45 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <unistd.h>
 #include <arpa/inet.h>
-#include <sys/socket.h>
+
+#include "common.h"
 
 #define SERVER "127.0.0.1"
 #define BUFLEN 1024  // Max length of buffer
 #define PORT 1029    // The port on which to send data
-
-struct Registry {
-  char name[256];
-  char value[256];
-  char type[256];
-  char ttl[256];
-};
-
-char *trim(char *str) {
-  char *end;
-
-  // Trim leading space
-  while(isspace((unsigned char)*str)) str++;
-
-  if(*str == 0) return str;
-
-  // Trim trailing space
-  end = str + strlen(str) - 1;
-  while(end > str && isspace((unsigned char)*end)) end--;
-
-  // Write new null terminator
-  *(end+1) = 0;
-
-  return str;
-}
-
-int valid_ip(char *ip) {
-    struct sockaddr_in sa;
-    int result = inet_pton(AF_INET, ip, &(sa.sin_addr));
-    return result != 0;
-}
 
 int main(int argc, char const *argv[]) {
   // Get server address

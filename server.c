@@ -1,45 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <unistd.h>
-#include <sys/socket.h>
 #include <arpa/inet.h>
+
+#include "common.h"
 
 #define DNS "./server.dns" // DNS file
 #define BUFLEN 1024  // Max length of buffer
 #define PORT 1029    // The port on which to listen for incoming data
-
-struct Registry {
-  char name[256];
-  char value[256];
-  char type[256];
-  char ttl[256];
-};
-
-char *trim(char *str) {
-  char *end;
-
-  // Trim leading space
-  while(isspace((unsigned char)*str)) str++;
-
-  if(*str == 0) return str;
-
-  // Trim trailing space
-  end = str + strlen(str) - 1;
-  while(end > str && isspace((unsigned char)*end)) end--;
-
-  // Write new null terminator
-  *(end+1) = 0;
-
-  return str;
-}
-
-int valid_ip(char *ip) {
-    struct sockaddr_in sa;
-    int result = inet_pton(AF_INET, ip, &(sa.sin_addr));
-    return result != 0;
-}
 
 long read_dns_file(FILE *file, struct Registry *registries[]) {
   long count = 0;
