@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
+#define DNS "./server.dns" // DNS file
 #define BUFLEN 1024  // Max length of buffer
 #define PORT 1029    // The port on which to listen for incoming data
 
@@ -65,8 +66,9 @@ long line_count(FILE *file) {
 int main(int argc, char const *argv[]) {
 
   /* DNS file setup */
-
-  FILE *file = fopen("./server.dns", "r");
+  const char *dns_file = (argc < 2) ? DNS : argv[1];
+  printf("DNS File: %s\n\n", dns_file);
+  FILE *file = fopen(dns_file, "r");
 
   long size = line_count(file);
   struct Registry **registries = calloc(size, sizeof(struct Registry));
@@ -103,7 +105,7 @@ int main(int argc, char const *argv[]) {
   }
 
   while(1) {
-    printf("Waiting for data...");
+    printf("Waiting for data...\n");
     fflush(stdout);
 
     // Try to receive some data, this is a blocking call
@@ -112,7 +114,7 @@ int main(int argc, char const *argv[]) {
     }
 
     // Print details of the client/peer and the data received
-    printf("Received packet from %s:%d\n", inet_ntoa(si_other.sin_addr), ntohs(si_other.sin_port));
+    printf("-> Received packet from %s:%d\n", inet_ntoa(si_other.sin_addr), ntohs(si_other.sin_port));
 
     // Read message
     char *message = trim(buf);
@@ -148,6 +150,8 @@ int main(int argc, char const *argv[]) {
     if (sendto(sock, response, BUFLEN, 0, (struct sockaddr*) &si_other, slen) == -1) {
       perror("sendto()");
     }
+
+    printf("-> Response: %s\n\n", response);
 
     // Clear the buffer by filling null
     memset(buf, '\0' , BUFLEN);

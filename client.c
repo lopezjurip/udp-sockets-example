@@ -42,6 +42,11 @@ int valid_ip(char *ip) {
 }
 
 int main(int argc, char const *argv[]) {
+  // Get server address
+  const char *server = (argc < 2) ? SERVER : argv[1];
+  printf("Server: %s\n\n", server);
+
+  // Prepare sockets
   struct sockaddr_in si_other;
   socklen_t slen = sizeof(si_other);
   char buf[BUFLEN];
@@ -58,7 +63,7 @@ int main(int argc, char const *argv[]) {
   si_other.sin_family = AF_INET;
   si_other.sin_port = htons(PORT);
 
-  if (inet_aton(SERVER, &si_other.sin_addr) == 0) {
+  if (inet_aton(server, &si_other.sin_addr) == 0) {
     fprintf(stderr, "inet_aton() failed\n");
     exit(1);
   }
@@ -95,12 +100,12 @@ int main(int argc, char const *argv[]) {
 
     // Show output or do action
     if (strcmp(registry->type, "A") == 0) {
-      printf("%s has address %s\n", registry->name, registry->value);
+      printf("%s has address %s\n\n", registry->name, registry->value);
     } else if (strcmp(registry->type, "CNAME") == 0) {
-      printf("%s is an alias for %s\n", registry->name, registry->value);
+      printf("%s is an alias for %s\n\n", registry->name, registry->value);
       // TODO: requery
     } else {
-      printf("Host %s not found\n", registry->name);
+      printf("Host %s not found\n\n", registry->name);
     }
   }
 
