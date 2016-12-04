@@ -33,6 +33,7 @@ long line_count(FILE *file) {
 }
 
 int main(int argc, char const *argv[]) {
+  printf("Please see README.md\n");
 
   /* DNS file setup */
 

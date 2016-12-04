@@ -13,7 +13,7 @@ client: client.o common.o
 	$(CC) $(CFLAGS) common.o client.o -o client
 
 clean:
-	rm server client
+	rm server client server.o client.o common.o
 
 client.o: client.c common.h
 	$(CC) $(CFLAGS) -c client.c

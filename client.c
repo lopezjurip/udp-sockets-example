@@ -34,6 +34,8 @@ struct Registry *request_dns(int sock, struct sockaddr_in si_other, char *messag
 }
 
 int main(int argc, char const *argv[]) {
+  printf("Please see README.md, you may have problems the first try.\n");
+
   // Get server address
   const char *server = (argc < 2) ? SERVER : argv[1];
   printf("Server: %s\n\n", server);
