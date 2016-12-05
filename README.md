@@ -1,7 +1,4 @@
-# T5
-
-* Patricio López Juri
-* María Fernanda Sepúlveda
+# UDP sockets in C
 
 ## Gotchas
 
